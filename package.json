@@ -1,0 +1,46 @@
+{
+  "name": "gestorfinanceiro_back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "1.18.3",
+    "consign": "0.1.6",
+    "express": "4.16.4",
+    "jwt-simple": "0.5.5",
+    "knex": "^0.15.2",
+    "knex-logger": "^0.1.0",
+    "mysql": "2.17.1",
+    "passport": "0.4.0",
+    "passport-jwt": "4.0.0",
+    "google-finance": "^0.1.12"
+  },
+  "devDependencies": {
+    "eslint": "5.10.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "jest": "23.6.0",
+    "supertest": "3.3.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/** test/** --fix",
+    "start": "node src/server.js",
+    "safe": "jest --watch --verbose=false"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/engBrunoSales/gestorfinanceiro_back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/engBrunoSales/gestorfinanceiro_back/issues"
+  },
+  "homepage": "https://github.com/engBrunoSales/gestorfinanceiro_back#readme"
+}

@@ -1,0 +1,25 @@
+{
+    "env": {
+        "jest": true
+    },
+    "extends": [
+        "plugin:vue/essential",
+        "airbnb-base"
+    ],
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+        "linebreak-style": "off",
+        "arrow-body-style": "off",
+        "semi": "off",
+        "eol-last": "off",
+        "import/newline-after-import": "off",
+        "arrow-parens": "off",
+        "max-len": "off",
+        "comma-dangle": "off",
+        "no-trailing-spaces": "off",
+        "import/order": "off",
+        "object-curly-newline": "off"
+    }
+}
