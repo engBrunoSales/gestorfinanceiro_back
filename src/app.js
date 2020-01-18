@@ -3,10 +3,11 @@ const consign = require('consign')
 
 const knex = require('knex')
 const knexfile = require('../knexfile')
-const environment = process.env.NODE_ENV || 'test';
+const environment = process.env.NODE_ENV || 'development';
 
 // tem que referenciar o ambiente vigente do knexfile (test ou production)
-app.db = knex(knexfile[environment])
+// app.db = knex(knexfile[environment])
+app.db = knex(knexfile.development)
 
 // cwd => especifica o diretorio padrao para o consign
 // verbose false => omite a inicialização do consign
