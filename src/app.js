@@ -23,5 +23,9 @@ app.get('/', (req, res) => {
   res.status(200).send()
 })
 
+app.get('/users', (req, res) => {
+  res.status(200).send('conexão estabelecida')
+})
+
 // exportando o objeto app
 module.exports = app
