@@ -34,6 +34,7 @@
     "safe": "jest --watch --verbose=true",
     "up": "Node_ENV=development& knex-migrate up",
     "down": "Node_ENV=development& knex-migrate down --to 0",
+    "seed": "Node_ENV=development& knex seed:run",
     "generate": "Node_ENV=development& knex-migrate generate "
   },
   "directories": {
