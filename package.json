@@ -13,6 +13,7 @@
     "jwt-simple": "0.5.5",
     "knex": "0.15.2",
     "knex-logger": "^0.1.0",
+    "knex-migrate": "^1.7.4",
     "mysql": "2.17.1",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
@@ -30,7 +31,10 @@
     "test": "jest",
     "lint": "eslint src/** test/** --fix",
     "start": "node src/server.js",
-    "safe": "jest --watch --verbose=true"
+    "safe": "jest --watch --verbose=true",
+    "up": "Node_ENV=development& knex-migrate up",
+    "down": "Node_ENV=development& knex-migrate down --to 0",
+    "generate": "Node_ENV=development& knex-migrate generate "
   },
   "directories": {
     "test": "test"
