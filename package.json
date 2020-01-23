@@ -35,7 +35,8 @@
     "up": "Node_ENV=development& knex-migrate up",
     "down": "Node_ENV=development& knex-migrate down --to 0",
     "seed": "Node_ENV=development& knex seed:run",
-    "generate": "Node_ENV=development& knex-migrate generate "
+    "generate": "Node_ENV=development& knex-migrate generate ",
+    "rotas" : "nodejs rotas.js"
   },
   "directories": {
     "test": "test"
