@@ -10,6 +10,7 @@ module.exports = app => {
   const protectedRouter = express.Router()
 
   protectedRouter.use('/users', app.routes.users)
+  protectedRouter.use('/mercados', app.routes.mercados)
 
   // roteador rotegido VERSÂO 1
   // app.use('/v1', app.config.passport.authenticate(), protectedRouter)

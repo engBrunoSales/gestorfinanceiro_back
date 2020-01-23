@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise){
   return knex.schema.createTable('mercados', function(table){
     table.increments();
-    table.string('nome').notNull();
+    table.string('nome').notNull().unique();
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   })
