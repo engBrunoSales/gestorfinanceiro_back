@@ -8,6 +8,7 @@
     "body-parser": "1.18.3",
     "consign": "0.1.6",
     "cors": "^2.8.5",
+    "cpf-cnpj-validator": "^0.1.0",
     "dotenv": "^8.2.0",
     "express": "4.16.4",
     "google-finance": "^0.1.12",
@@ -37,7 +38,7 @@
     "down": "Node_ENV=development& knex-migrate down --to 0",
     "seed": "Node_ENV=development& knex seed:run",
     "generate": "Node_ENV=development& knex-migrate generate ",
-    "rotas" : "nodejs rotas.js"
+    "rotas": "nodejs rotas.js"
   },
   "directories": {
     "test": "test"

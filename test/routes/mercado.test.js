@@ -1,17 +1,17 @@
 const request = require('supertest')
-const app = require('../src/app')
+const app = require('../../src/app')
 
 const MAIN_ROUTE = '/mercados'
 // expectativas sempre começam pelo res.status
 
-test('Deve responder na rota /mercados', () => {
+test.skip('Deve responder na rota /mercados', () => {
   return request(app).get(MAIN_ROUTE)
     .then(res => {
       expect(res.status).toBe(200)
     })
 })
 
-test('Deve listar todos os itens do banco de dados', () => {
+test.skip('Deve listar todos os itens do banco de dados', () => {
 	return request(app).get(MAIN_ROUTE)
 	  .then(res => {
       app.db('mercados').select(['nome'])
@@ -21,8 +21,8 @@ test('Deve listar todos os itens do banco de dados', () => {
     })
 })
 
-test('Deve retornar apenas um mercado /mercado/:id', () => {
-  return request(app).get('/mercados/1')
+test.skip('Deve retornar apenas um mercado /mercado/:id', () => {
+  return request(app).get(`${MAIN_ROUTE}/1`)
     .then((res) => {
       app.db('mercados').select(['nome']).where('id', 1)
         .then(result => {
@@ -31,8 +31,8 @@ test('Deve retornar apenas um mercado /mercado/:id', () => {
     })
 })
 
-test('Salvando um mercado', () => {
-  return request(app).post(MAIN_ROUT)
+test.skip('Salvando um mercado', () => {
+  return request(app).post(MAIN_ROUTE)
     .then(res => {
       expect(true).toBe(false)
     })

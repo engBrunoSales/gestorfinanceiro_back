@@ -1,8 +1,11 @@
 const request = require('supertest')
-const app = require('../src/app')
+const cpfValidator = require('cpf-cnpj-validator')
+const app = require('../../src/app')
 
 const MAIN_ROUTE = '/users'
 // expectativas sempre começam pelo res.status
+
+const cpf = cpfValidator.cpf.generate()
 const nome = 'User 1'
 const nascimento = '1997-09-14'
 const email = `${Date.now()}@gmail.com`
@@ -12,7 +15,7 @@ const admin = false
 const telefone = '85900000000'
 const local = 'Fortaleza,CE'
 
-const user1 = { nome, nascimento, email, senha, confirmarSenha, admin, telefone, local }
+const user1 = { cpf, nome, nascimento, email, senha, confirmarSenha, admin, telefone, local }
 
 // testes bãsicos: 
 // 1: realizar um GET no /users esperando: status 200 e uma lista como resposta
@@ -22,8 +25,9 @@ test('Deve inserir usuário.', () => {
   return request(app).post(MAIN_ROUTE)
     .send(user1)
     .then(res => {
+      // console.log(res)
       expect(res.status).toBe(201)
-      expect(res.body[0]).toBeGreaterThan(0)
+      expect(res.body[0]).toBe(0)
     })
 })
 
@@ -57,7 +61,7 @@ test('Deve listar todos os usuários', () => {
   // test.skip('Não deve inserir sem admin', () => testTemplate({ admin: null }, 'Admin?'))
   // test.skip('Não deve inserir com cpf existente', () => testTemplate({ cpf: null }, 'Já existe um usuário cadastrado com este CPF.'))
   // test.skip('Não deve inserir com email existente', () => testTemplate({ email: null }, 'Já existe um usuário cadastrado com este CPF.'))
-  
+
   // test('Não deve inserir sem nome', () => testTemplate({ nome: null }, 'Nome é um campo obrigatório.'))
   // test('Não deve inserir sem data de nascimento', () => testTemplate({ email: null }, 'Data de nascimento é um campo obrigatório.'))
   // test('Não deve inserir sem email', () => testTemplate({ email: null }, 'E-mail é um campo obrigatório.'))
@@ -66,3 +70,4 @@ test('Deve listar todos os usuários', () => {
 
 
 // })
+

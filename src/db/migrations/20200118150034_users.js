@@ -1,7 +1,7 @@
 
 exports.up = (knex) => {
   return knex.schema.createTable('users', (table) => {
-    table.increments('cpf').primary().unique()
+    table.string('cpf').primary().unique()
     table.string('nome').notNull()
     table.date('nascimento').notNull()
     table.string('email').notNull()
