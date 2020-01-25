@@ -1,6 +1,14 @@
-node_modules/
-
 *.log
 
+
+# Node modules
+node_modules
+
+# Adonis directory for storing tmp files
+tmp
+
+# Environment variables, never commit this file
 .env
-modelo.env
+
+# The development sqlite file
+database/*.sqlite
