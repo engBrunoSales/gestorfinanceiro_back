@@ -11,7 +11,7 @@ module.exports = {
     client: process.env.DB_CLIENT,
     connection: {
       host: process.env.DB_HOST,
-      database: 'gestorfinaceiro_dev',
+      database: process.env.DB_NAME,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       charset: process.env.DB_CHARSET

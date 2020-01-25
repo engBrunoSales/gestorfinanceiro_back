@@ -9,4 +9,5 @@ const knexlogger = require('knex-logger')
 module.exports = app => {
   app.use(bodyParser.json())
   app.use(cors())
+  // app.use(knexlogger(app.db))
 }
