@@ -2,57 +2,50 @@
 const Mercado = use("App/Models/Mercado")
 
 class MercadoController {
-	async get({response, request, auth, params}) {
-		const user = await auth.getUser()
-		if (user) {
-			if(params.id){
-				const mercados = await Mercado.find(params.id)
-				return response.status(200).json(mercados) 
-			}else{
-				const mercados = await Mercado.all()
-				return response.status(200).json(mercados)
-			}
-		} else { 
-			return response.status(401)
-		} 
-	}
+  async index() {
+    const mercados = await Mercado.all()
+    return mercados
+  }
 
-	async post({response, request, auth}) {
-		const user = await auth.getUser()
-		if(user.admin){
-			const mercado = await Mercado.create({
-				...request.only(['nome'])
-			})
-			return response.created(mercado) 
-		} else {
-			return response.status(401)
-		}
-	}
+  async show({params}) {
+    const mercado = await Mercado.findOrFail(params.id)
 
-	async put({response, request, auth, params}) {
-		const user = await auth.getUser()
-		if(user.admin) {
-			const data = {...request.only(['nome'])}
-			const mercado = await Mercado.find(params.id)
-			mercado.nome = data.nome
-			await mercado.save()
-			return response.status(201).json(mercado)
-		}
-		else {
-			return response.status(401)	
-		}
-	}
+    return mercado
+  }
 
-	async delete({response, request, auth, params}) {
-		const user = await auth.getUser()
-		if(user.admin) {
-			const mercado = await Mercado.find(params.id)
-			await mercado.delete()
-			return response.status(201)
-		} else {
-			return response.status(401)	
-		}
-	}
+  async store({request, auth}){
+    const nome = request.only(['nome'])
+    const user = await auth.getUser()
+    if(!user.admin){
+      return response.status(401).send({ error: 'Not authorized' })
+    }
+
+    const mercado = new Mercado()
+    mercado.nome = nome
+    await mercado.save()
+  }
+
+  async update({params, request, auth}) {
+    const nome = request.only['nome']
+    const user = await auth.getUser()
+    if(!user.admin){
+      return response.status(401).send({ error: 'Not authorized' })
+    }
+    const mercado = await Mercado.findOrFail(params.id)
+    mercado.nome = nome
+    await mercado.save()
+  }
+
+  async destroy({params, auth}) {
+    const user = await auth.getUser()
+    if(!user.admin){
+      return response.status(401).send({ error: 'Not authorized' })
+    }
+
+    const mercado = await Mercado.find(params.id)
+    await mercado.delete()
+  }
+
 }
 
 module.exports = MercadoController
