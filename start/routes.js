@@ -16,21 +16,22 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-/*
-|--------------------------------------------------------------------------
-| Rota: /users -> Model: User
-|--------------------------------------------------------------------------
-*/
 
-/*
-|--------------------------------------------------------------------------
-| Rota: /mercados -> Controller: MercadoController
-|--------------------------------------------------------------------------
-*/
-Route.group(() => { 	
-	Route.get('/', 'MercadoController.get')
-	Route.get('/:id', 'MercadoController.get')
-	Route.post('/', 'MercadoController.post').validator('CreateMercado')
-	Route.put('/:id', 'MercadoController.put')
-	Route.delete('/:id', 'MercadoController.delete')
-}).prefix('api/mercados').middleware(['auth'])
+
+Route.group(() => {
+
+	/*
+	|--------------------------------------------------------------------------
+	| Rota: /users -> Model: User
+	|--------------------------------------------------------------------------
+	*/
+
+	/*
+	|--------------------------------------------------------------------------
+	| Rota: /mercados -> Controller: MercadoController
+	|--------------------------------------------------------------------------
+  */
+  Route.resource('mercados', 'MercadoController').apiOnly().except(['store', 'update']).middleware(['auth'])
+  Route.post('/mercados', 'MercadoController.store').validator('CreateMercado').middleware(['auth'])
+  Route.put('/mercados/:id', 'MercadoController.update').validator('CreateMercado').middleware(['auth'])
+}).prefix('api')
