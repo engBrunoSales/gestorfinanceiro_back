@@ -13,7 +13,7 @@ class MercadoController {
     return mercado
   }
 
-  async store({request, auth}){
+  async store({request, auth, response}){
     const nome = request.only(['nome'])
     const user = await auth.getUser()
     if(!user.admin){
@@ -25,7 +25,7 @@ class MercadoController {
     await mercado.save()
   }
 
-  async update({params, request, auth}) {
+  async update({params, request, auth, response}) {
     const nome = request.only['nome']
     const user = await auth.getUser()
     if(!user.admin){
@@ -36,7 +36,7 @@ class MercadoController {
     await mercado.save()
   }
 
-  async destroy({params, auth}) {
+  async destroy({params, auth, response}) {
     const user = await auth.getUser()
     if(!user.admin){
       return response.status(401).send({ error: 'Not authorized' })

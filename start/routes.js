@@ -22,16 +22,39 @@ Route.group(() => {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Rota: /users -> Model: User
+	| Rota: -> Controller: SessionController
 	|--------------------------------------------------------------------------
 	*/
+  Route.get('/login', 'SessionController.login').validator('Login')
+  Route.get('/logout', 'SessionController.logout')
+
+  /*
+	|--------------------------------------------------------------------------
+	| Rota: /api/users -> Controller: UserController
+	|--------------------------------------------------------------------------
+  */
+  Route.resource('users', 'UserController').apiOnly()
+    .validator(new Map([
+      [['users.store'], ['CreateUser']],
+      [['users.update'], ['UpdateUser']]
+    ]))
+    .middleware(new Map([
+      [['users.index'], ['auth']],
+      [['users.show'], ['auth']],
+      [['users.update'], ['auth']],
+      [['users.destroy'], ['auth']]
+    ]))
+
 
 	/*
 	|--------------------------------------------------------------------------
-	| Rota: /mercados -> Controller: MercadoController
+	| Rota: /api/mercados -> Controller: MercadoController
 	|--------------------------------------------------------------------------
   */
-  Route.resource('mercados', 'MercadoController').apiOnly().except(['store', 'update']).middleware(['auth'])
-  Route.post('/mercados', 'MercadoController.store').validator('CreateMercado').middleware(['auth'])
-  Route.put('/mercados/:id', 'MercadoController.update').validator('CreateMercado').middleware(['auth'])
+  Route.resource('mercados', 'MercadoController').apiOnly()
+    .validator(new Map([
+      [['mercados.store'], ['CreateMercado']],
+      [['mercados.update'], ['CreateMercado']]
+    ]))
+    .middleware(['auth'])
 }).prefix('api')
