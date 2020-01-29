@@ -40,39 +40,38 @@ test('Consulta de um mercado especifico - Não Autenticado', async ({assert, cli
 })
 
 test('Criação de um mercado válido - Autenticado Admin', async ({assert, client}) => {
-	const user = await Factory.model('App/Models/User').create()
+	const user = await Factory.model('App/Models/User').make()
   user.admin = true
-  user.save()
-	const data = {
-		nome: 'Bancario'
-	}
-	const response = await client.post('/api/mercados')
+  await user.save()
+  const mercado = await Factory.model('App/Models/Mercado').make()
+
+  const response = await client.post('/api/mercados')
   								.loginVia(user, 'jwt')
-  								.send(data)
+  								.send(mercado.toJSON())
   								.end()
-  	response.assertStatus(204)
+  response.assertStatus(204)
 })
 
 test('Criação de um mercado válido -Não Autenticado', async ({assert, client}) => {
-	const data = {
-		nome: 'Bancario'
-	}
+	const mercado = await Factory.model('App/Models/Mercado').make()
+
 	const response = await client.post('/api/mercados')
-  								.send(data)
+  								.send(mercado.toJSON())
   								.end()
   	response.assertStatus(401)
 })
 
 test('Criação de um mercado inválido', async ({assert, client}) => {
-	const user = await Factory.model('App/Models/User').create()
+	const user = await Factory.model('App/Models/User').make()
 	user.admin = true
-	user.save()
-	const data = {
-		nome: 123
-	}
-	const response = await client.post('/api/mercados')
+  await user.save()
+
+  const mercado = await Factory.model('App/Models/Mercado').make()
+  mercado.nome = 123
+
+  const response = await client.post('/api/mercados')
   								.loginVia(user, 'jwt')
-  								.send(data)
+  								.send(mercado.toJSON())
   								.end()
   	response.assertStatus(400)
   	response.assertJSONSubset([{
@@ -85,14 +84,19 @@ test('Criação de um mercado inválido', async ({assert, client}) => {
 test('Alterando um mercado - Autenticado Admin', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').create()
 	user.admin = true
-	user.save()
-	const mercado = await Factory.model('App/Models/Mercado').create()
+	await user.save()
+
+  const mercado = await Factory.model('App/Models/Mercado').create()
   const dado = {nome: 'Industrial'}
-	const response = await client.put('/api/mercados/' + mercado.id)
+
+  const response = await client.put('/api/mercados/' + mercado.id)
 								.loginVia(user, 'jwt')
 								.send(dado)
 								.end()
-	response.assertStatus(204)
+  response.assertStatus(204)
+
+  const mercadoUpdate = await Mercado.find(mercado.id)
+  assert.equal(mercadoUpdate.nome, dado.nome)
 })
 
 test('Alterando um mercado - Não Autenticado', async ({assert, client}) => {
@@ -105,11 +109,11 @@ test('Alterando um mercado - Não Autenticado', async ({assert, client}) => {
 })
 
 test('Deletando um mercado - Autenticado Admin', async ({assert, client}) => {
-	const user = await Factory.model('App/Models/User').create()
+	const user = await Factory.model('App/Models/User').make()
 	user.admin = true
-	user.save()
+	await user.save()
 
-	const mercado = new Mercado()
+	const mercado = await Factory.model('App/Models/Mercado').make()
 	mercado.nome = 'Financeiro'
 	await mercado.save()
 

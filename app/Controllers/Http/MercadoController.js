@@ -14,31 +14,28 @@ class MercadoController {
   }
 
   async store({request, auth, response}){
-    const nome = request.only(['nome'])
     const user = await auth.getUser()
-    if(!user.admin){
+    if(user.admin == false){
       return response.status(401).send({ error: 'Not authorized' })
     }
-
-    const mercado = new Mercado()
-    mercado.nome = nome
-    await mercado.save()
+    const mercadoData = request.all()
+    await Mercado.create(mercadoData)
   }
 
   async update({params, request, auth, response}) {
-    const nome = request.only['nome']
     const user = await auth.getUser()
-    if(!user.admin){
+    if(user.admin == false){
       return response.status(401).send({ error: 'Not authorized' })
     }
+    const mercadoData = request.all()
     const mercado = await Mercado.findOrFail(params.id)
-    mercado.nome = nome
+    mercado.merge(mercadoData)
     await mercado.save()
   }
 
   async destroy({params, auth, response}) {
     const user = await auth.getUser()
-    if(!user.admin){
+    if(user.admin == false){
       return response.status(401).send({ error: 'Not authorized' })
     }
 
