@@ -41,3 +41,16 @@ Factory.blueprint('App/Models/Carteira', () => {
     nome: faker.lorem.sentence()
   }
 })
+
+Factory.blueprint('App/Models/Profile', async () => {
+  const user = await Factory.model('App/Models/User').make()
+  user.admin = false
+  await user.save()
+  const profile = await user.profile().make({
+    nome: faker.lorem.sentence(),
+    pontuacao_a: faker.random.number(),
+    pontuacao_m: faker.random.number(),
+    pontuacao_c: faker.random.number()
+  })
+  return await profile.toJSON()
+})
