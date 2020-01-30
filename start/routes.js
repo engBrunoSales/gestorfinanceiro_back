@@ -45,7 +45,6 @@ Route.group(() => {
       [['users.destroy'], ['auth']]
     ]))
 
-
 	/*
 	|--------------------------------------------------------------------------
 	| Rota: /api/mercados -> Controller: MercadoController
@@ -57,4 +56,18 @@ Route.group(() => {
       [['mercados.update'], ['CreateMercado']]
     ]))
     .middleware(['auth'])
+
+  /*
+	|--------------------------------------------------------------------------
+	| Rota: /api/carteiras -> Controller: CarteiraController
+	|--------------------------------------------------------------------------
+  */
+  Route.resource('carteiras', 'CarteiraController').apiOnly()
+  .middleware(['auth'])
+  .validator(new Map([
+    [['carteiras.store'], ['CreateCarteira']],
+    [['carteiras.update'], ['CreateCarteira']]
+  ]))
+
+
 }).prefix('api')

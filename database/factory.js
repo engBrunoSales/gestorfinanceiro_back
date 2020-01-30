@@ -35,3 +35,9 @@ Factory.blueprint('App/Models/Mercado', () => {
 		nome: faker.lorem.sentence()
 	}
 })
+
+Factory.blueprint('App/Models/Carteira', () => {
+  return {
+    nome: faker.lorem.sentence()
+  }
+})
