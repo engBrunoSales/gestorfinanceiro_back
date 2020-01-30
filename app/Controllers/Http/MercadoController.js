@@ -4,13 +4,13 @@ const Mercado = use("App/Models/Mercado")
 class MercadoController {
   async index() {
     const mercados = await Mercado.all()
-    return mercados
+    return await mercados.toJSON()
   }
 
   async show({params}) {
     const mercado = await Mercado.findOrFail(params.id)
 
-    return mercado
+    return await mercado.toJSON()
   }
 
   async store({request, auth, response}){
