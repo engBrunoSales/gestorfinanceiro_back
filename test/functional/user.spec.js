@@ -21,7 +21,7 @@ test('Consulta de todos os usuários - Logado Admin', async ({client}) => {
                   .loginVia(user, 'jwt')
                   .end()
   response.assertStatus(200)
-})
+}).timeout(0)
 
 test('Consulta de todos os usuários - Não Logado Admin', async ({client}) => {
   const user = await Factory.model('App/Models/User').make()
@@ -33,7 +33,7 @@ test('Consulta de todos os usuários - Não Logado Admin', async ({client}) => {
                   .loginVia(user, 'jwt')
                   .end()
   response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Consulta de um usuário especifico - Logado Admin', async ({client}) => {
   const userAdmin = await Factory.model('App/Models/User').make()
@@ -53,7 +53,7 @@ test('Consulta de um usuário especifico - Logado Admin', async ({client}) => {
                                 .loginVia(userAdmin, 'jwt')
                                 .end()
   responseAdmin.assertStatus(200)
-})
+}).timeout(0)
 
 
 test('Consulta de um usuário especifico - Logado', async ({client}) => {
@@ -77,7 +77,7 @@ test('Consulta de um usuário especifico - Logado', async ({client}) => {
   responseAdmin.assertJSONSubset({
     error: 'Not authorized'
   })
-})
+}).timeout(0)
 
 test('Criando um usuário válido', async ({client}) => {
   const user = await Factory.model('App/Models/User').make()
@@ -86,7 +86,7 @@ test('Criando um usuário válido', async ({client}) => {
 									.send(user.toJSON())
                   .end()
 	response.assertStatus(204)
-})
+}).timeout(0)
 
 test('Criando um usuário inválido', async ({client}) => {
 	const user = await Factory.model('App/Models/User').make()
@@ -100,7 +100,7 @@ test('Criando um usuário inválido', async ({client}) => {
   	field: 'nome',
   	validation: 'string'
   }])
-})
+}).timeout(0)
 
 test('Alterando um usuário com dados válidos - Logado', async ({assert, client}) => {
   const user = await Factory.model('App/Models/User').create()
@@ -118,7 +118,7 @@ test('Alterando um usuário com dados válidos - Logado', async ({assert, client
   const userUpdate = await User.find(user.id)
   assert.equal(userUpdate.nome, dados.nome)
   assert.equal(userUpdate.telefone, dados.telefone)
-})
+}).timeout(0)
 
 test('Alterando um usuário com dados inválidos - Logado', async ({client}) => {
   const user = await Factory.model('App/Models/User').create()
@@ -131,7 +131,7 @@ test('Alterando um usuário com dados inválidos - Logado', async ({client}) => 
                   .send(dados)
                   .end()
   response.assertStatus(400)
-})
+}).timeout(0)
 
 test('Alterando um usuário com dados válidos - Não Logado', async ({client}) => {
   const userNew = await Factory.model('App/Models/User').make()
@@ -143,7 +143,7 @@ test('Alterando um usuário com dados válidos - Não Logado', async ({client}) 
                   .send(dados)
 									.end()
 	response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Deletando um usuário', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').create()
@@ -159,6 +159,6 @@ test('Deletando um usuário', async ({assert, client}) => {
 
   const qtdUser = await User.query().where('id', user_del.id).getCount()
   assert.equal(0, qtdUser)
-})
+}).timeout(0)
 
 

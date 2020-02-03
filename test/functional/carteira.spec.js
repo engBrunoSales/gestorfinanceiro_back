@@ -24,7 +24,7 @@ test('Consulta de todas as carteiras de um usuário', async ({ assert, client })
     {nome: 'Feverreiro 2020'},
     {nome: 'Janeiro 2020'}
   ])
-})
+}).timeout(0)
 
 test('Consulta de uma carteira especifica', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -37,7 +37,7 @@ test('Consulta de uma carteira especifica', async ({ assert, client }) => {
   response.assertJSONSubset([
     {nome: 'Feverreiro 2020'}
   ])
-})
+}).timeout(0)
 
 test('Criação de uma carteira', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -50,7 +50,7 @@ test('Criação de uma carteira', async ({ assert, client }) => {
                   .send(data)
                   .end()
   response.assertStatus(204)
-})
+}).timeout(0)
 
 test('Criação de uma carteira inválida', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -68,7 +68,7 @@ test('Criação de uma carteira inválida', async ({ assert, client }) => {
     message: 'nome não é uma string válida',
     validation: 'string'
   }])
-})
+}).timeout(0)
 
 test('Alteração de uma carteira', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -82,7 +82,7 @@ test('Alteração de uma carteira', async ({ assert, client }) => {
                   .send(data)
                   .end()
   response.assertStatus(204)
-})
+}).timeout(0)
 
 test('Deleção de uma carteira', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -93,4 +93,4 @@ test('Deleção de uma carteira', async ({ assert, client }) => {
                   .end()
   response.assertStatus(204)
   assert.equal(await user.carteiras().getCount(), 0)
-})
+}).timeout(0)

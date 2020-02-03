@@ -18,7 +18,7 @@ test('Teste de login do usuário com dados válidos', async ({client}) => {
 									.send(dado)
 									.end()
   response.assertStatus(200)
-})
+}).timeout(0)
 
 test('Teste de login de usuário - sem informação de login', async ({client}) => {
   const user = Factory.model('App/Models/User').create()
@@ -39,7 +39,7 @@ test('Teste de login de usuário - sem informação de login', async ({client}) 
       validation: 'required'
     }
   ])
-})
+}).timeout(0)
 
 test('Teste de logout do usuário', async ({client}) => {
 	const user = await Factory.model('App/Models/User', ).create()
@@ -47,4 +47,4 @@ test('Teste de logout do usuário', async ({client}) => {
 									.loginVia(user, 'jwt')
 									.end()
   response.assertStatus(204)
-})
+}).timeout(0)
