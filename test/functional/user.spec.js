@@ -146,8 +146,8 @@ test('Alterando um usuário com dados válidos - Não Logado', async ({client}) 
 }).timeout(0)
 
 test('Deletando um usuário', async ({assert, client}) => {
-	const user = await Factory.model('App/Models/User').create()
-	user.admin
+	const user = await Factory.model('App/Models/User').make()
+	user.admin = true
 	user.save()
 
   const user_del = await Factory.model('App/Models/User').create()
