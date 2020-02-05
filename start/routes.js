@@ -69,5 +69,17 @@ Route.group(() => {
     [['carteiras.update'], ['CreateCarteira']]
   ]))
 
+  /*
+	|--------------------------------------------------------------------------
+	| Rota: /api/carteiras -> Controller: CarteiraController
+	|--------------------------------------------------------------------------
+  */
+  Route.resource('profiles', 'ProfileController').apiOnly()
+  .middleware(['auth'])
+  .validator(new Map([
+    [['profiles.store'], ['CreateProfile']],
+    [['profiles.update'], ['CreateProfile']]
+  ]))
+
 
 }).prefix('api')

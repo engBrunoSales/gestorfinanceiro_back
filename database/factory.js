@@ -26,7 +26,7 @@ Factory.blueprint('App/Models/User', () => {
 		password: 'password123',
 		telefone: faker.phone.phoneNumber(),
 		local: faker.address.streetAddress(),
-		admin: true
+		admin: false
 	}
 })
 
@@ -43,14 +43,11 @@ Factory.blueprint('App/Models/Carteira', () => {
 })
 
 Factory.blueprint('App/Models/Profile', async () => {
-  const user = await Factory.model('App/Models/User').make()
-  user.admin = false
-  await user.save()
-  const profile = await user.profile().make({
+
+  return {
     nome: faker.lorem.sentence(),
     pontuacao_a: faker.random.number(),
     pontuacao_m: faker.random.number(),
     pontuacao_c: faker.random.number()
-  })
-  return await profile.toJSON()
+  }
 })

@@ -25,6 +25,10 @@ class User extends Model {
     return this.hasMany('App/Models/Carteira')
   }
 
+  profile () {
+    return this.hasOne('App/Models/Profile')
+  }
+
   /**
    * A relationship on tokens is required for auth to
    * work. Since features like `refreshTokens` or
