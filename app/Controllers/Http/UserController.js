@@ -41,7 +41,7 @@ class UserController {
 
   async destroy({auth, params, response}){
     const userAdmin = await auth.getUser()
-    if(userAdmin.admin == false){
+    if(!userAdmin.admin){
       return response.status(401).send({error: 'Not authorized'})
     }
 

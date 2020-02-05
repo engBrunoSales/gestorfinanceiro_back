@@ -15,13 +15,13 @@ test('Consulta de todos os mercados - Autenticado', async ({assert, client}) => 
   								.loginVia(user, 'jwt')
   								.end()
   response.assertStatus(200)
-})
+}).timeout(0)
 
 test('Consulta de todos os mercados - Não Autenticado', async ({assert, client}) => {
 	const response = await client.get('/api/mercados')
   								.end()
   response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Consulta de um mercado especifico - Autenticado', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').create()
@@ -30,14 +30,14 @@ test('Consulta de um mercado especifico - Autenticado', async ({assert, client})
 								.loginVia(user, 'jwt')
   								.end()
   	response.assertStatus(200)
-})
+}).timeout(0)
 
 test('Consulta de um mercado especifico - Não Autenticado', async ({assert, client}) => {
 	const mercado = await Factory.model('App/Models/Mercado').create()
 	const response = await client.get('/api/mercados/' + mercado.id)
   								.end()
   	response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Criação de um mercado válido - Autenticado Admin', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').make()
@@ -50,7 +50,7 @@ test('Criação de um mercado válido - Autenticado Admin', async ({assert, clie
   								.send(mercado.toJSON())
   								.end()
   response.assertStatus(204)
-})
+}).timeout(0)
 
 test('Criação de um mercado válido -Não Autenticado', async ({assert, client}) => {
 	const mercado = await Factory.model('App/Models/Mercado').make()
@@ -59,7 +59,7 @@ test('Criação de um mercado válido -Não Autenticado', async ({assert, client
   								.send(mercado.toJSON())
   								.end()
   	response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Criação de um mercado inválido', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').make()
@@ -79,7 +79,7 @@ test('Criação de um mercado inválido', async ({assert, client}) => {
   		field: 'nome',
   		validation: 'string'
   	}])
-})
+}).timeout(0)
 
 test('Alterando um mercado - Autenticado Admin', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').create()
@@ -97,7 +97,7 @@ test('Alterando um mercado - Autenticado Admin', async ({assert, client}) => {
 
   const mercadoUpdate = await Mercado.find(mercado.id)
   assert.equal(mercadoUpdate.nome, dado.nome)
-})
+}).timeout(0)
 
 test('Alterando um mercado - Não Autenticado', async ({assert, client}) => {
 	const mercado = await Factory.model('App/Models/Mercado').create()
@@ -106,7 +106,7 @@ test('Alterando um mercado - Não Autenticado', async ({assert, client}) => {
 								.send(dado)
 								.end()
 	response.assertStatus(401)
-})
+}).timeout(0)
 
 test('Deletando um mercado - Autenticado Admin', async ({assert, client}) => {
 	const user = await Factory.model('App/Models/User').make()
@@ -121,11 +121,11 @@ test('Deletando um mercado - Autenticado Admin', async ({assert, client}) => {
 								.loginVia(user, 'jwt')
 								.end()
 	response.assertStatus(204)
-})
+}).timeout(0)
 
 test('Deletando um mercado - Não Autenticado', async ({assert, client}) => {
 	const mercado = await Factory.model('App/Models/Mercado').create()
 	const response = await client.delete('/api/mercados/' + mercado.id)
 								.end()
 	response.assertStatus(401)
-})
+}).timeout(0)
