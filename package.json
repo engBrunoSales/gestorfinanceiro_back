@@ -28,7 +28,8 @@
     "@adonisjs/vow": "^1.0.17",
     "cpf_cnpj": "^0.2.0",
     "faker": "^4.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {},
   "autoload": {
