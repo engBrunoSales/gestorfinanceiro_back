@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Mercado extends Model {
+
+  ativos () {
+    return this.hasMany('App/Models/Ativo')
+  }
 }
 
 module.exports = Mercado
