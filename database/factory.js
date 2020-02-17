@@ -51,3 +51,16 @@ Factory.blueprint('App/Models/Profile', async () => {
     pontuacao_c: faker.random.number()
   }
 })
+
+Factory.blueprint('App/Models/Ativo', async () => {
+
+  return {
+    cod_bovespa: faker.name.prefix() + faker.random.number(20000),
+    nome_empresa: faker.company.companyName(),
+    cotacao: faker.commerce.price(10, 12),
+    preco_max: faker.commerce.price(12, 14),
+    preco_min: faker.commerce.price(8, 10),
+    dt_atualizacao: '2020-02-16 00:00:00',
+    valido: true
+  }
+})

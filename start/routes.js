@@ -71,7 +71,7 @@ Route.group(() => {
 
   /*
 	|--------------------------------------------------------------------------
-	| Rota: /api/carteiras -> Controller: CarteiraController
+	| Rota: /api/profiles -> Controller: ProfileController
 	|--------------------------------------------------------------------------
   */
   Route.resource('profiles', 'ProfileController').apiOnly()
@@ -79,6 +79,17 @@ Route.group(() => {
   .validator(new Map([
     [['profiles.store'], ['CreateProfile']],
     [['profiles.update'], ['CreateProfile']]
+  ]))
+
+  /*
+	|--------------------------------------------------------------------------
+	| Rota: /api/ativos -> Controller: AtivoController
+	|--------------------------------------------------------------------------
+  */
+  Route.resource('ativos', 'AtivoController').apiOnly()
+  .middleware(['auth'])
+  .validator(new Map([
+    [['ativos.store'], ['CreateAtivo']]
   ]))
 
 
