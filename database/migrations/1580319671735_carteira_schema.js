@@ -8,7 +8,7 @@ class CarteiraSchema extends Schema {
     this.create('carteiras', (table) => {
       table.increments()
       table.string('nome', 100).notNullable()
-      table.integer('user_id').unsigned().notNullable().index('idx_user_id_carteira');
+      table.integer('user_id').unsigned().notNullable().index('idx_user_id_carteira')
       table.timestamps()
 
       table.foreign('user_id').references('id').inTable('users')
