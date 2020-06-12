@@ -85,7 +85,7 @@ test('Criando um usuário válido', async ({client}) => {
 	const response = await client.post(URL_BASE)
 									.send(user.toJSON())
                   .end()
-	response.assertStatus(204)
+	response.assertStatus(200)
 }).timeout(0)
 
 test('Criando um usuário inválido', async ({client}) => {

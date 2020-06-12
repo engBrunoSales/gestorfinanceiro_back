@@ -10,14 +10,14 @@ class UserController {
       return response.status(401).send({error: 'Not authorized'})
     }
     const users = await User.all()
-    return await users.toJSON()
+    return users
   }
 
   async show({params, auth, response}){
     const user = await auth.getUser()
     if(user.id == params.id || user.admin == true){
       const userShow = await User.findOrFail(params.id)
-      return await userShow.toJSON()
+      return userShow
     }else{
       return response.status(401).send({error: 'Not authorized'})
     }
@@ -25,7 +25,8 @@ class UserController {
 
   async store({request}){
     const userData = request.all()
-    await User.create(userData)
+    const user = await User.create(userData)
+    return user
   }
 
   async update({auth, params, response, request}){

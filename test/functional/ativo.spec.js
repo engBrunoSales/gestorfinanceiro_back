@@ -2,7 +2,7 @@
 
 const Ativo = use('App/Models/Ativo')
 const Factory = use('Factory')
-const { test, trait } = use('Test/Suite')('Teste para o Profile')
+const { test, trait } = use('Test/Suite')('Teste para o Ativo')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
